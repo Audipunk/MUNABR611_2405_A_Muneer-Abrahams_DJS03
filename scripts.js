@@ -259,10 +259,9 @@ function BookPreviewClick(event) {
         document.querySelector('[data-list-subtitle]').innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`
         document.querySelector('[data-list-description]').innerText = active.description
     }
-})
+}
 
-*/ Handles the search form submission
-*/
+/*Handles the search form submission/
 function SearchSubmit(event) {
  event.preventDefault();
  const formData = new FormData(
