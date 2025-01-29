@@ -25,7 +25,6 @@ body {
   color: rgba(var(--color-dark), 0.9);
   background: linear-gradient(0deg, rgba(var(--color-dark), 0.2), rgba(var(--color-dark), 0.1)), rgba(var(--color-light), 1);
 }
-
 option {
   background-color: rgba(var(--color-light), 1);
   color: rgba(var(--color-dark), 0.8);
