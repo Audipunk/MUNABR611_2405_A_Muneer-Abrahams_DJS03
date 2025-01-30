@@ -1,4 +1,4 @@
-import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
+import { books, authors, genres, BOOKS_PER_PAGE } from './MUNABR611_2405_A_Muneer-Abrahams_DJS03/data.js'
 
 let page = 1;
 let matches = books
@@ -84,99 +84,84 @@ function handleSearch(event) {
     document.querySelector('[data-list-items]').innerHTML = '';
     renderBookList(matches);
 
-    if (result.length < 1) {
-        document.querySelector('[data-list-message]').classList.add('list__message_show')
-    } else {
-        document.querySelector('[data-list-message]').classList.remove('list__message_show')
-    }
+    document.querySelector('[data-list-button]').disabled = matches.length <= page * BOOKS_PER_PAGE;
+    document.querySelector('[data-list-message]').classList.toggle('list__message_show', matches.length < 1);
+    toggleOverlay('[data-search-overlay]', false);
+}
 
-    document.querySelector('[data-list-items]').innerHTML = ''
-    const newItems = document.createDocumentFragment()
+// Handles theme change
+function handleThemeChange(event) {
+    event.preventDefault();
+    const theme = new FormData(event.target).get('theme');
+    setTheme(theme);
+    toggleOverlay('[data-settings-overlay]', false);
+}
 
-    for (const { author, id, image, title } of result.slice(0, BOOKS_PER_PAGE)) {
-        const element = document.createElement('button')
-        element.classList = 'preview'
-        element.setAttribute('data-preview', id)
-    
+// Event listeners
+function setupEventListeners() {
+    document.querySelector('[data-search-cancel]').addEventListener('click', () => toggleOverlay('[data-search-overlay]', false));
+    document.querySelector('[data-settings-cancel]').addEventListener('click', () => toggleOverlay('[data-settings-overlay]', false));
+    document.querySelector('[data-header-search]').addEventListener('click', () => {
+        toggleOverlay('[data-search-overlay]', true);
+        document.querySelector('[data-search-title]').focus();
+    });
+    document.querySelector('[data-header-settings]').addEventListener('click', () => toggleOverlay('[data-settings-overlay]', true));
+    document.querySelector('[data-list-close]').addEventListener('click', () => toggleOverlay('[data-list-active]', false));
+    document.querySelector('[data-settings-form]').addEventListener('submit', handleThemeChange);
+    document.querySelector('[data-search-form]').addEventListener('submit', handleSearch);
+    document.querySelector('[data-list-button]').addEventListener('click', handleShowMore);
+    document.querySelector('[data-list-items]').addEventListener('click', (event) => {
+        const pathArray = Array.from(event.composedPath());
+        const previewButton = pathArray.find(node => node.dataset?.preview);
+        if (previewButton) displayActiveBook(previewButton.dataset.preview);
+    });
+}
+
+// Load more books on click
+function handleShowMore() {
+    const fragment = document.createDocumentFragment();
+
+    matches.slice(page * BOOKS_PER_PAGE, (page + 1) * BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
+        const element = document.createElement('button');
+        element.classList.add('preview');
+        element.setAttribute('data-preview', id);
         element.innerHTML = `
-            <img
-                class="preview__image"
-                src="${image}"
-            />
-            
+            <img class="preview__image" src="${image}" />
             <div class="preview__info">
                 <h3 class="preview__title">${title}</h3>
                 <div class="preview__author">${authors[author]}</div>
             </div>
-        `
+        `;
+        fragment.appendChild(element);
+    });
 
-        newItems.appendChild(element)
+    document.querySelector('[data-list-items]').appendChild(fragment);
+    page += 1;
+}
+// Display active book details
+function displayActiveBook(bookId) {
+    const activeBook = books.find(book => book.id === bookId);
+    if (activeBook) {
+        document.querySelector('[data-list-active]').open = true;
+        document.querySelector('[data-list-blur]').src = activeBook.image;
+        document.querySelector('[data-list-image]').src = activeBook.image;
+        document.querySelector('[data-list-title]').innerText = activeBook.title;
+        document.querySelector('[data-list-subtitle]').innerText = `${authors[activeBook.author]} (${new Date(activeBook.published).getFullYear()})`;
+        document.querySelector('[data-list-description]').innerText = activeBook.description;
     }
+}
 
-    document.querySelector('[data-list-items]').appendChild(newItems)
-    document.querySelector('[data-list-button]').disabled = (matches.length - (page * BOOKS_PER_PAGE)) < 1
+// Initial setup
+function initialize() {
+    renderBookList(matches);
+    populateDropdown(document.querySelector('[data-search-genres]'), genres, 'All Genres');
+    populateDropdown(document.querySelector('[data-search-authors]'), authors, 'All Authors');
+    setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day');
+    document.querySelector('[data-list-button]').innerText = `Show more (${books.length - BOOKS_PER_PAGE})`;
+    setupEventListeners();
+}
 
-    document.querySelector('[data-list-button]').innerHTML = `
-        <span>Show more</span>
-        <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
-    `
+// Start the application
+initialize();
 
-    window.scrollTo({top: 0, behavior: 'smooth'});
-    document.querySelector('[data-search-overlay]').open = false
-})
 
-document.querySelector('[data-list-button]').addEventListener('click', () => {
-    const fragment = document.createDocumentFragment()
-
-    for (const { author, id, image, title } of matches.slice(page * BOOKS_PER_PAGE, (page + 1) * BOOKS_PER_PAGE)) {
-        const element = document.createElement('button')
-        element.classList = 'preview'
-        element.setAttribute('data-preview', id)
-    
-        element.innerHTML = `
-            <img
-                class="preview__image"
-                src="${image}"
-            />
-            
-            <div class="preview__info">
-                <h3 class="preview__title">${title}</h3>
-                <div class="preview__author">${authors[author]}</div>
-            </div>
-        `
-
-        fragment.appendChild(element)
-    }
-
-    document.querySelector('[data-list-items]').appendChild(fragment)
-    page += 1
-})
-
-document.querySelector('[data-list-items]').addEventListener('click', (event) => {
-    const pathArray = Array.from(event.path || event.composedPath())
-    let active = null
-
-    for (const node of pathArray) {
-        if (active) break
-
-        if (node?.dataset?.preview) {
-            let result = null
-    
-            for (const singleBook of books) {
-                if (result) break;
-                if (singleBook.id === node?.dataset?.preview) result = singleBook
-            } 
-        
-            active = result
-        }
-    }
-    
-    if (active) {
-        document.querySelector('[data-list-active]').open = true
-        document.querySelector('[data-list-blur]').src = active.image
-        document.querySelector('[data-list-image]').src = active.image
-        document.querySelector('[data-list-title]').innerText = active.title
-        document.querySelector('[data-list-subtitle]').innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`
-        document.querySelector('[data-list-description]').innerText = active.description
-    }
-})
