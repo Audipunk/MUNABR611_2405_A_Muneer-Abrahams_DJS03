@@ -1,4 +1,17 @@
-import { books, authors, genres, BOOKS_PER_PAGE } from './MUNABR611_2405_A_Muneer-Abrahams_DJS03/data.js'
+const styles = {
+  preview__title: {
+    margin: '0 0 0.5rem',
+    fontWeight: 'bold',
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    lineClamp: 2,
+    color: 'rgba(var(--color-dark), 0.8)'
+  }
+}
+
+;import { books, authors, genres, BOOKS_PER_PAGE } from './MUNABR611_2405_A_Muneer-Abrahams_DJS03/data.js'
 
 let page = 1;
 let matches = books
