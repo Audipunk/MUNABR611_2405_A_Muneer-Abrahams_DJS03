@@ -227,10 +227,16 @@ closeWindowHandler('[data-list-close]', '[data-list-active]');
 /**
  * Loads additional books when the "Show more" button is clicked.
  */
+const totalPages = Math.ceil(matches.length / BOOKS_PER_PAGE);
+
 document.querySelector('[data-list-button]').addEventListener('click', () => {
-    populateCardWindow(matches.slice(page * BOOKS_PER_PAGE, (page + 1) * BOOKS_PER_PAGE))
-    page += 1
-})
+  if (page < totalPages) {
+    populateCardWindow(matches.slice(page * BOOKS_PER_PAGE, (page + 1) * BOOKS_PER_PAGE));
+    page += 1;
+  } else {
+    console.log('No more pages to load!');
+  }
+});
 
 /**
  * Opens the book detail view when a book preview is clicked.
