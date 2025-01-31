@@ -90,14 +90,26 @@ function setTheme(mode) {
 }
 
 // main function
-(function() {
+function ShowMore() {
+    const fragment = document.createDocumentFragment();
+    const start = page * BOOKS_PER_PAGE;
+    const end = (page + 1) * BOOKS_PER_PAGE;
+  
+    renderBooks(
+      fragment,
+      matches.slice(start, end),
+    ); /* displays thr books from the matches array*/
+    document.querySelector("[data-list-items]").appendChild(fragment);
+    page += 1; /* next batch of books show when user clicks "show more"*/
+  }
+  
     populateCardWindow(matches.slice(0, BOOKS_PER_PAGE));
 
     populateSelectionMenu('[data-search-genres]', genres, 'All Genres');
     populateSelectionMenu('[data-search-authors]', authors, 'All Authors');
 
     setInitialTheme();
-})()
+
 
 document.querySelector('[data-list-button]').disabled = !!((matches.length - (page * BOOKS_PER_PAGE)) > 0);
 
