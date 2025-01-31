@@ -99,13 +99,12 @@ function setTheme(mode) {
     setInitialTheme();
 })()
 
-document.querySelector('[data-list-button]').innerText = `Show more (${matches.length - BOOKS_PER_PAGE})`;
-document.querySelector('[data-list-button]').disabled = (matches.length - (page * BOOKS_PER_PAGE)) > 0;
+document.querySelector('[data-list-button]').disabled = !!((matches.length - (page * BOOKS_PER_PAGE)) > 0);
 
 document.querySelector('[data-list-button]').innerHTML = `
     <span>Show more</span>
-    <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
-`
+    <span class="list__remaining"> (${matches.length - (page * BOOKS_PER_PAGE) || 0})</span>
+`;
 
 /**
  * Closes a modal window when an element is clicked.
