@@ -99,7 +99,7 @@ function setTheme(mode) {
     setInitialTheme();
 })()
 
-document.querySelector('[data-list-button]').innerText = `Show more (${books.length - BOOKS_PER_PAGE})`;
+document.querySelector('[data-list-button]').innerText = `Show more (${matches.length - BOOKS_PER_PAGE})`;
 document.querySelector('[data-list-button]').disabled = (matches.length - (page * BOOKS_PER_PAGE)) > 0;
 
 document.querySelector('[data-list-button]').innerHTML = `
