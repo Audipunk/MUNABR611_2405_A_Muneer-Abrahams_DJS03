@@ -8,39 +8,44 @@ let matches = books
 
 /**
  * Populates the card window with book previews.
- *
- * @param {Array<BookPreview>} data - The list of books to display.
+ * @param {Array} data - The list of books to display. Each book should have properties: author, id, image, and title.
  */
 function populateCardWindow(data) {
+    if (data === null) {
+        throw new Error('No data provided to populateCardWindow');
+    }
+
     const starting = document.createDocumentFragment()
 
-    for (const book of data) {
+    for (const { author, id, image, title } of data) {
+        if (typeof author !== 'string' || typeof id !== 'string' || typeof image !== 'string' || typeof title !== 'string') {
+            throw new Error('Invalid data provided to populateCardWindow');
+        }
+
         const element = document.createElement('button')
-        element.classList.add('preview')
-        element.dataset.preview = book.id
+        element.classList = 'preview'
+        element.setAttribute('data-preview', id)
 
         element.innerHTML = `
             <img
                 class="preview__image"
-                src="${book.image}"
+                src="${image}"
             />
             
             <div class="preview__info">
-                <h3 class="preview__title">${book.title}</h3>
-                <div class="preview__author">${book.author || 'Unknown'}</div>
+                <h3 class="preview__title">${title}</h3>
+                <div class="preview__author">${authors[author] || 'Unknown'}</div>
             </div>
         `
 
         starting.appendChild(element)
     }
 
-    const listItems = document.querySelector('[data-list-items]')
-
-    if (!listItems) {
+    if (!document.querySelector('[data-list-items]')) {
         throw new Error('Could not find element with data-list-items attribute');
     }
 
-    listItems.appendChild(starting)
+    document.querySelector('[data-list-items]').appendChild(starting)
 }
 
 /**
