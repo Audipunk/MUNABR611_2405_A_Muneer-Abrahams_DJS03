@@ -1,37 +1,46 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 
 
+
 let page = 1;
 let matches = books
 
 
 /**
  * Populates the card window with book previews.
- * @param {Array} data - The list of books to display. Each book should have properties: author, id, image, and title.
+ *
+ * @param {Array<BookPreview>} data - The list of books to display.
  */
 function populateCardWindow(data) {
     const starting = document.createDocumentFragment()
 
-    for (const { author, id, image, title } of data) {
+    for (const book of data) {
         const element = document.createElement('button')
-        element.classList = 'preview'
-        element.setAttribute('data-preview', id)
-    
+        element.classList.add('preview')
+        element.dataset.preview = book.id
+
         element.innerHTML = `
             <img
                 class="preview__image"
-                src="${image}"
+                src="${book.image}"
             />
             
             <div class="preview__info">
-                <h3 class="preview__title">${title}</h3>
-                <div class="preview__author">${authors[author]}</div>
+                <h3 class="preview__title">${book.title}</h3>
+                <div class="preview__author">${book.author || 'Unknown'}</div>
             </div>
         `
-    
+
         starting.appendChild(element)
     }
-    document.querySelector('[data-list-items]').appendChild(starting)
+
+    const listItems = document.querySelector('[data-list-items]')
+
+    if (!listItems) {
+        throw new Error('Could not find element with data-list-items attribute');
+    }
+
+    listItems.appendChild(starting)
 }
 
 /**
@@ -90,33 +99,22 @@ function setTheme(mode) {
 }
 
 // main function
-function ShowMore() {
-    const fragment = document.createDocumentFragment();
-    const start = page * BOOKS_PER_PAGE;
-    const end = (page + 1) * BOOKS_PER_PAGE;
-  
-    renderBooks(
-      fragment,
-      matches.slice(start, end),
-    ); /* displays thr books from the matches array*/
-    document.querySelector("[data-list-items]").appendChild(fragment);
-    page += 1; /* next batch of books show when user clicks "show more"*/
-  }
-  
+(function() {
     populateCardWindow(matches.slice(0, BOOKS_PER_PAGE));
 
     populateSelectionMenu('[data-search-genres]', genres, 'All Genres');
     populateSelectionMenu('[data-search-authors]', authors, 'All Authors');
 
     setInitialTheme();
+})()
 
-
-document.querySelector('[data-list-button]').disabled = !!((matches.length - (page * BOOKS_PER_PAGE)) > 0);
+document.querySelector('[data-list-button]').innerText = `Show more (${books.length - BOOKS_PER_PAGE})`;
+document.querySelector('[data-list-button]').disabled = (matches.length - (page * BOOKS_PER_PAGE)) > 0;
 
 document.querySelector('[data-list-button]').innerHTML = `
     <span>Show more</span>
-    <span class="list__remaining"> (${matches.length - (page * BOOKS_PER_PAGE) || 0})</span>
-`;
+    <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
+`
 
 /**
  * Closes a modal window when an element is clicked.
@@ -189,11 +187,12 @@ document.querySelector('[data-search-form]').addEventListener('submit', (event) 
     populateCardWindow(result.slice(0, BOOKS_PER_PAGE))
 
     document.querySelector('[data-list-button]').disabled = (matches.length - (page * BOOKS_PER_PAGE)) < 1
-document.querySelector('[data-list-button]').innerHTML = `
-  <span>Show more</span>
-  <span class="list__remaining"> (${matches.length - (page * BOOKS_PER_PAGE) > 0 ? matches.length - (page * BOOKS_PER_PAGE) : 0})</span>
-`;
-  
+
+    document.querySelector('[data-list-button]').innerHTML = `
+        <span>Show more</span>
+        <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
+    `
+
     window.scrollTo({top: 0, behavior: 'smooth'});
     document.querySelector('[data-search-overlay]').open = false
 })

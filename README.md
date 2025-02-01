@@ -1,5 +1,6 @@
 # DJS03 Project Brief: Book Connect - Abstractions
 
+
 /* CODE Explanation
     
     Function Segmentation: broke the code into multiple, small functions like populateCardWindow, populateSelectionMenu, setTheme,
