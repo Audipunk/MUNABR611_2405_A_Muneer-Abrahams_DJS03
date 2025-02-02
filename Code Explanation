@@ -1,0 +1,29 @@
+Code Explanation
+
+1. Function Segmentation
+The code is broken into small, single-responsibility functions like populateCardWindow, populateSelectionMenu, and setTheme.
+This makes the code easier to read, maintain, and debug.
+
+2. Use of Parameters Instead of Global Variables
+Functions rely on parameters instead of global variables, making them pure.
+This helps with predictability, testability, and avoids unintended side effects.
+
+3. JSDoc Comments for Documentation
+JSDoc comments have been added to clearly document functions.
+This allows developers to quickly understand what each function does, its expected parameters, and return values.
+
+4. Modular Design
+The code follows a modular approach, meaning different parts (like the theme system or book display logic) can be modified independently.
+This improves scalability and maintainability.
+
+5. Theming System
+The function setTheme dynamically adjusts colors based on user preferences.
+New themes can be added without modifying other parts of the code, making it extensible.
+
+6. Code Reusability & DRY Principle
+Event listeners are abstracted into openWindowHandler and closeWindowHandler, making them reusable across different modals.
+This avoids code duplication and keeps the logic centralized.
+
+**Challenges Faced & How They Were Overcome**
+Initially, patterns were not obvious, but by experimenting with the code, opportunities for modularization became clear.
+Breaking down large blocks of code into smaller functions improved readability and maintainability.

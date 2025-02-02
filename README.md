@@ -1,23 +1,6 @@
 # DJS03 Project Brief: Book Connect - Abstractions
 
 
-/* CODE Explanation
-    
-    Function Segmentation: broke the code into multiple, small functions like populateCardWindow, populateSelectionMenu, setTheme,
-
-    Used of Parameters: by passing data through function parameters rather than relying on global variables. This helps keep functions pure, making them more predictable and less dependent on external states.
-
-    JSDoc Comments: By adding JSDoc comments, clear documentation for each function. This helps developers understand what each function does, what parameters it expects, and how it can be used.
-
-    Modular Design: The code is modular, meaning we can change parts of the code (like the theme or how books are displayed) without impacting other parts.
-
-    Theming: The theme-switching logic (setTheme) is abstracted to adjust the colors dynamically. If new themes are added, this function can be easily extended without impacting other parts of the code.
-
-    Reusability: The way event listeners are abstracted using openWindowHandler and closeWindowHandler makes it easier to reuse them across different modal interactions. This approach centralizes similar logic and keeps the code DRY (Don’t Repeat Yourself).
-
-    Challenges Faced and How They Were Overcome:
-        At first i didn't notice a pattern but after iv started playing with the code i found ways to Modularize it
- */
 
 Dive into the delightful world of "Book Connect," where literary adventures await at your fingertips! Browse, explore, and uncover your next great read from a vast, vibrant collection. Whether you're a fan of thrilling mysteries, epic fantasies, or heartwarming romances, "Book Connect" brings the magic of books directly to you. Happy reading! 
 
