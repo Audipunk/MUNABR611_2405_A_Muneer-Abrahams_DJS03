@@ -266,5 +266,6 @@ document.querySelector('[data-list-items]').addEventListener('click', (event) =>
         document.querySelector('[data-list-title]').innerText = active.title
         document.querySelector('[data-list-subtitle]').innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`
         document.querySelector('[data-list-description]').innerText = active.description
+        document.querySelector('[data-list-button]').addEventListener('click', handleShowMore);
     }
 })
