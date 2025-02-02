@@ -8,8 +8,8 @@ let matches = books
 
 /**
  * Populates the card window with book previews.
- * @param {Array} data - The list of books to display. Each book should have properties: author, id, image, and title.
- */
+ * data - The list of books to display. Each book should have properties: author, id, image, and title.
+ * @param {Array} /** */
 function populateCardWindow(data) {
     if (data === null) {
         throw new Error('No data provided to populateCardWindow');
@@ -49,12 +49,11 @@ function populateCardWindow(data) {
 }
 
 /**
- * Populates a selection dropdown menu with options.
+ * For selection dropdown menu with options.
  *
- * @param {string} selector - The CSS selector of the dropdown menu to populate.
- * @param {Object} options - An object containing key-value pairs where the key is the option value and the value is the option text.
- * @param {string} defaultOptionText - The text to display for the default "any" option.
- *
+ * @param {string} selector = CSS selector of the dropdown menu to populate.
+ * @param {Object} options = object containing key-value pairs where the key is the option value and the value is the option text.
+ * @param {string} defaultOptionText = text to display for the default "any" option.
  * @example
  * // Example usage:
  * populateSelectionMenu('[data-search-genres]', genres, 'All Genres');
@@ -76,8 +75,8 @@ function populateSelectionMenu(selector, options, defaultOptionText) {
     document.querySelector(selector).appendChild(fragment);
 }
 
-/**
- * Sets the initial theme based on the user's system preferences (dark or light).
+/*
+ Sets the initial theme based on the user's system preferences (dark or light).
  */
 function setInitialTheme() {
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -90,7 +89,7 @@ function setInitialTheme() {
 }
 
 /**
- * Sets the website theme based on the user's selection.
+ Toggles the website theme based on the user's selection.
  * @param {string} mode - The theme mode ('night' or 'day').
  */
 function setTheme(mode) {
@@ -103,7 +102,8 @@ function setTheme(mode) {
     }
 }
 
-// main function
+// main function//
+
 (function() {
     populateCardWindow(matches.slice(0, BOOKS_PER_PAGE));
 
@@ -122,7 +122,7 @@ document.querySelector('[data-list-button]').innerHTML = `
 `
 
 /**
- * Closes a modal window when an element is clicked.
+  Closes a modal window when an element is clicked.
  * @param {string} attachTag - The selector for the element to attach the event listener to.
  * @param {string} modelTag - The selector for the modal window to close.
  */
@@ -147,7 +147,7 @@ function openWindowHandler(attachTag, modelTag, func = null) {
     });
 }
 
-// Data search eventlistener 
+// Search eventlistener //
 closeWindowHandler('[data-search-cancel]', '[data-search-overlay]');
 
 openWindowHandler('[data-header-search]', '[data-search-overlay]', ()=>{document.querySelector('[data-search-title]').focus()});
@@ -156,6 +156,7 @@ openWindowHandler('[data-header-search]', '[data-search-overlay]', ()=>{document
  * Handles the search form submission and filters books based on user input.
  * @param {Event} event - The submit event triggered by the form.
  */
+
 document.querySelector('[data-search-form]').addEventListener('submit', (event) => {
     event.preventDefault()
     const formData = new FormData(event.target)
@@ -202,7 +203,7 @@ document.querySelector('[data-search-form]').addEventListener('submit', (event) 
     document.querySelector('[data-search-overlay]').open = false
 })
 
-// Setting eventlistener
+// settings eventlistener
 closeWindowHandler('[data-settings-cancel]', '[data-settings-overlay]')
 
 openWindowHandler('[data-header-settings]', '[data-settings-overlay]')
@@ -218,7 +219,7 @@ document.querySelector('[data-settings-form]').addEventListener('submit', (event
 })
 
 
-// data list eventlistener
+//  list eventlistener
 closeWindowHandler('[data-list-close]', '[data-list-active]');
 
 /**
@@ -236,7 +237,7 @@ document.querySelector('[data-list-button]').addEventListener('click', () => {
 });
 
 /**
- * Opens the book detail view when a book preview is clicked.
+ * Opens the book view when a book preview is clicked.
  * @param {Event} event - The click event triggered by the user.
  */
 document.querySelector('[data-list-items]').addEventListener('click', (event) => {
