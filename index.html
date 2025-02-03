@@ -110,7 +110,10 @@
       <div class="list__message" data-list-message>
         No results found. Your filters might be too narrow.
       </div>
-      <button class="list__button" data-list-button></button>
+      <button class="list__button" data-list-button="" disabled="" aria-label="Show more results">
+        <span>Show more</span>
+        <span class="list__remaining"> (1320)</span>
+      </button>
     </main>
 
     <dialog class="overlay" data-list-active>
@@ -174,10 +177,7 @@
           <button
             class="overlay__button overlay__button_primary"
             type="submit"
-            form="search"
-          >
-            Search
-          </button>
+            form="search">Search</button>
         </div>
       </div>
     </dialog>
@@ -188,8 +188,7 @@
           <label class="overlay__field">
             <div class="overlay__label">Theme</div>
 
-            <select
-              class="overlay__input overlay__input_select"
+            <select class="overlay__input overlay__input_select"
               data-settings-theme
               name="theme"
             >
