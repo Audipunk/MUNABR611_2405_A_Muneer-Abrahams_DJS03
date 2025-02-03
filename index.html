@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Book Connect</title>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/meta/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/meta/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/meta/favicon-16x16.png">
-    <link rel="manifest" href="/meta/manifest.json">
-    <link rel="mask-icon" href="/meta/safari-pinned-tab.svg" color="#0096ff">
-    <link rel="shortcut icon" href="/meta/favicon.ico">
-    <meta name="msapplication-TileColor" content="#0a0a14">
-    <meta name="msapplication-config" content="/meta/browserconfig.xml">
-    <meta name="theme-color" content="#0a0a14">
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/meta/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/meta/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/meta/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/meta/manifest.json" />
+    <link rel="mask-icon" href="/meta/safari-pinned-tab.svg" color="#0096ff" />
+    <link rel="shortcut icon" href="/meta/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#0a0a14" />
+    <meta name="msapplication-config" content="/meta/browserconfig.xml" />
+    <meta name="theme-color" content="#0a0a14" />
 
     <link rel="stylesheet" href="./styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -25,15 +39,13 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap"
       rel="stylesheet"
     />
-    <!-- External scripts -->
+
     <script type="module" src="./scripts.js"></script>
     <script type="module" src="./data.js"></script>
   </head>
   <body>
-    <!-- Header Section -->
     <header class="header">
       <div class="header__inner">
-        <!-- Logo -->
         <div class="header__logo">
           <svg
             class="header__shape"
@@ -44,7 +56,7 @@
               d="M52.88 57.62 4.126 37.897a3 3 0 0 0-2.25 5.562L58.95 66.55a11.062 11.062 0 0 0 2.1.849l.154.062c.351.142.714.213 1.071.22 5.35.912 10.682-2.253 12.34-7.577l14.27-45.83C90.694 8.473 87.456 2.307 81.654.5c-5.8-1.806-11.966 1.432-13.773 7.233l-8.23 26.429L49.03 4.479a5 5 0 1 0-9.415 3.37l14.04 39.23-31.087-31.085a4 4 0 1 0-5.657 5.656l35.97 35.97Z"
             ></path>
           </svg>
-          <!-- Header Text SVG -->
+
           <svg
             class="header__text"
             viewBox="0 0 652 74"
@@ -90,51 +102,82 @@
         </div>
       </div>
     </header>
-    <!-- Main Content -->
+
     <main class="list">
+      <!-- Custom tag name for web component -->
+      <custom-button></custom-button>
       <div class="list__items" data-list-items></div>
-      <div class="list__message" data-list-message>No results found. Your filters might be too narrow.</div>
+      <div class="list__message" data-list-message>
+        No results found. Your filters might be too narrow.
+      </div>
       <button class="list__button" data-list-button></button>
     </main>
 
-    <!-- Footer  -->
     <dialog class="overlay" data-list-active>
-      <div class="overlay__preview"><img class="overlay__blur" data-list-blur src=""/><img class="overlay__image" data-list-image src=""/></div>
+      <div class="overlay__preview">
+        <img class="overlay__blur" data-list-blur src="" /><img
+          class="overlay__image"
+          data-list-image
+          src=""
+        />
+      </div>
       <div class="overlay__content">
         <h3 class="overlay__title" data-list-title></h3>
         <div class="overlay__data" data-list-subtitle></div>
-        <p class="overlay__data overlay__data_secondary" data-list-description></p>
+        <p
+          class="overlay__data overlay__data_secondary"
+          data-list-description
+        ></p>
       </div>
 
       <div class="overlay__row">
-        <button class="overlay__button overlay__button_primary" data-list-close>Close</button>
+        <button class="overlay__button overlay__button_primary" data-list-close>
+          Close
+        </button>
       </div>
     </dialog>
-
 
     <dialog class="overlay" data-search-overlay>
       <div class="overlay__content">
         <form class="overlay__form" data-search-form id="search">
           <label class="overlay__field">
             <div class="overlay__label">Title</div>
-            <input class="overlay__input" data-search-title name="title" placeholder="Any"></input>
+            <input
+              class="overlay__input"
+              data-search-title
+              name="title"
+              placeholder="Any"
+            />
           </label>
 
           <label class="overlay__field">
             <div class="overlay__label">Genre</div>
-            <select class="overlay__input overlay__input_select" data-search-genres name="genre"></select>
+            <select
+              class="overlay__input overlay__input_select"
+              data-search-genres
+              name="genre"
+            ></select>
           </label>
 
           <label class="overlay__field">
             <div class="overlay__label">Author</div>
-            <select class="overlay__input overlay__input_select" data-search-authors name="author">
-            </select>
+            <select
+              class="overlay__input overlay__input_select"
+              data-search-authors
+              name="author"
+            ></select>
           </label>
         </form>
 
         <div class="overlay__row">
           <button class="overlay__button" data-search-cancel>Cancel</button>
-          <button class="overlay__button overlay__button_primary" type="submit" form="search">Search</button>
+          <button
+            class="overlay__button overlay__button_primary"
+            type="submit"
+            form="search"
+          >
+            Search
+          </button>
         </div>
       </div>
     </dialog>
@@ -145,7 +188,11 @@
           <label class="overlay__field">
             <div class="overlay__label">Theme</div>
 
-            <select class="overlay__input overlay__input_select" data-settings-theme name="theme">
+            <select
+              class="overlay__input overlay__input_select"
+              data-settings-theme
+              name="theme"
+            >
               <option value="day">Day</option>
               <option value="night">Night</option>
             </select>
@@ -154,11 +201,17 @@
 
         <div class="overlay__row">
           <button class="overlay__button" data-settings-cancel>Cancel</button>
-          <button class="overlay__button overlay__button_primary" type="submit" form="settings">Save</button>
+          <button
+            class="overlay__button overlay__button_primary"
+            type="submit"
+            form="settings"
+          >
+            Save
+          </button>
         </div>
       </div>
     </dialog>
-    
+
     <div class="backdrop"></div>
   </body>
 </html>
