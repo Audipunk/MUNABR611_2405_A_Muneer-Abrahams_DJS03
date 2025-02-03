@@ -103,8 +103,7 @@ function setTheme(mode) {
 }
 
 // main function//
-
-(function() {
+function () {
     populateCardWindow(matches.slice(0, BOOKS_PER_PAGE));
 
     populateSelectionMenu('[data-search-genres]', genres, 'All Genres');
@@ -117,7 +116,7 @@ document.querySelector('[data-list-button]').innerText = `Show more (${books.len
 document.querySelector('[data-list-button]').disabled = (matches.length - (page * BOOKS_PER_PAGE)) > 0;
 
 document.querySelector('[data-list-button]').innerHTML = `
-    <span>Show more</span>
+   ( <span>Show more</span>)
     <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
 `
 
