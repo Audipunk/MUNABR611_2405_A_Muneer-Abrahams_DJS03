@@ -45,11 +45,12 @@ for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
 
 // Creates different book genre's
 function createGenre() {
-  const genreHtml = document.createDocumentFragment(); // Instead of newDocument
+  const genreHtml = newDocument;
   const firstGenreElement = createNewElements("option");
   firstGenreElement.value = "any";
   firstGenreElement.innerText = "All Genres";
   genreHtml.appendChild(firstGenreElement);
+
   for (const [id, name] of Object.entries(genres)) {
     const element = createNewElements("option");
     element.value = id;
@@ -59,6 +60,7 @@ function createGenre() {
   callingElements.searchGenres.appendChild(genreHtml);
 }
 
+createGenre();
 
 // Give's authors names for each book that's generated
 function createAuthor() {
@@ -278,8 +280,7 @@ callingElements.listButtons.addEventListener("click", () => {
 
 function selectedBook() {
   callingElements.listItems.addEventListener("click", (event) => {
-    const pathArray = event.composedPath();
-
+    const pathArray = Array.from(event.path || event.composedPath());
     let active = null;
 
     for (const node of pathArray) {
