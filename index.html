@@ -29,7 +29,7 @@
     <link rel="shortcut icon" href="/meta/favicon.ico" />
     <meta name="msapplication-TileColor" content="#0a0a14" />
     <meta name="msapplication-config" content="/meta/browserconfig.xml" />
-    <meta name="theme-color" content="#0a0a14" />
+    <meta name="msapplication-TileColor" content="#0a0a14" />
 
     <link rel="stylesheet" href="./styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,7 +39,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap"
       rel="stylesheet"
     />
-    <button id="myButton">Click Me</button>
+    <button  type="button"  id="myButton">Click Me</button>
     <script src="script.js"></script>
     
     <script type="module" src="./scripts.js"></script>
@@ -78,7 +78,7 @@
           </svg>
         </div>
         <div>
-          <button class="header__button" data-header-search>
+          <button  title="Search" type="button" class="header__button" data-header-search>
             <svg
               class="header__icon"
               viewBox="0 96 960 960"
@@ -90,7 +90,7 @@
             </svg>
           </button>
 
-          <button class="header__button" data-header-settings>
+          <button title="settings"  type="button" class="header__button" data-header-settings>
             <svg
               class="header__icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +112,7 @@
       <div class="list__message" data-list-message>
         No results found. Your filters might be too narrow.
       </div>
-      <button class="list__button" data-list-button></button>
+      <button  title="data-list-button" type="button" class="list__button" data-list-button></button>
     </main>
 
     <dialog class="overlay" data-list-active>
@@ -133,7 +133,7 @@
       </div>
 
       <div class="overlay__row">
-        <button class="overlay__button overlay__button_primary" data-list-close>
+        <button  type="button"  class="overlay__button overlay__button_primary" data-list-close>
           Close
         </button>
       </div>
@@ -172,14 +172,11 @@
         </form>
 
         <div class="overlay__row">
-          <button class="overlay__button" data-search-cancel>Cancel</button>
-          <button
-            class="overlay__button overlay__button_primary"
+          <button  type="button"  class="overlay__button" data-search-cancel>Cancel</button>
+          <button  class="overlay__button overlay__button_primary"
             type="submit"
             form="search"
-          >
-            Search
-          </button>
+          >Search</button>
         </div>
       </div>
     </dialog>
@@ -202,14 +199,11 @@
         </form>
 
         <div class="overlay__row">
-          <button class="overlay__button" data-settings-cancel>Cancel</button>
-          <button
-            class="overlay__button overlay__button_primary"
+          <button  type="button"  class="overlay__button" data-settings-cancel>Cancel</button>
+          <button class="overlay__button overlay__button_primary"
             type="submit"
             form="settings"
-          >
-            Save
-          </button>
+          >Save</button>
         </div>
       </div>
     </dialog>
