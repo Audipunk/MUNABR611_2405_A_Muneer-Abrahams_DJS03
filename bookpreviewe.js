@@ -1,5 +1,7 @@
 
-class BookPreview extends HTMLElement {
+[
+    class BookPreview extends HTMLElement {
+        {
     constructor() {
       super();
       this.attachShadow({ mode: "open" });
@@ -75,3 +77,4 @@ class BookPreview extends HTMLElement {
 
 
 customElements.define("book-preview", BookPreview);
+            ],
