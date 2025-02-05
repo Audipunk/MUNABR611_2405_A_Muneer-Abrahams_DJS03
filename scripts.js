@@ -113,23 +113,77 @@ function setupEventListeners() {
     });
 }
 
-// Load more books on click
-function handleShowMore() {
-    const fragment = document.createDocumentFragment();
+import { JSDOM } from 'jsdom';
 
-    matches.slice(page * BOOKS_PER_PAGE, (page + 1) * BOOKS_PER_PAGE).forEach(({ author, id, image, title }) => {
-        const element = document.createElement('book-preview');
-        element.setAttribute('data-preview', id);
-        element.setAttribute('title', title);
-        element.setAttribute('author', authors[author]);
-        element.setAttribute('image', image);
-        fragment.appendChild(element);
-    });
+describe('handleShowMore', () => {
+  let dom;
+  let document;
+  let window;
 
-    document.querySelector('[data-list-items]').appendChild(fragment);
-    page += 1;
-}
+  beforeEach(() => {
+    dom = new JSDOM(`<!DOCTYPE html><html><body><div data-list-items></div></body></html>`);
+    document = dom.window.document;
+    window = dom.window;
+  });
 
+  afterEach(() => {
+    dom = null;
+    document = null;
+    window = null;
+  });
+
+  it('appends new book elements to the DOM', () => {
+    const matches = [
+      { author: 'author1', id: 'id1', image: 'image1', title: 'title1' },
+      { author: 'author2', id: 'id2', image: 'image2', title: 'title2' },
+    ];
+    const BOOKS_PER_PAGE = 2;
+    const page = 0;
+
+    handleShowMore();
+
+    const bookElements = document.querySelectorAll('[data-list-items] > book-preview');
+    expect(bookElements.length).toBe(2);
+    expect(bookElements[0].getAttribute('data-preview')).toBe('id1');
+    expect(bookElements[0].getAttribute('title')).toBe('title1');
+    expect(bookElements[0].getAttribute('author')).toBe('author1');
+    expect(bookElements[0].getAttribute('image')).toBe('image1');
+  });
+
+  it('increments the page variable', () => {
+    const page = 0;
+
+    handleShowMore();
+
+    expect(page).toBe(1);
+  });
+
+  it('handles empty matches array', () => {
+    const matches = [];
+
+    handleShowMore();
+
+    const bookElements = document.querySelectorAll('[data-list-items] > book-preview');
+    expect(bookElements.length).toBe(0);
+  });
+
+  it('handles matches array with less than BOOKS_PER_PAGE elements', () => {
+    const matches = [
+      { author: 'author1', id: 'id1', image: 'image1', title: 'title1' },
+    ];
+    const BOOKS_PER_PAGE = 2;
+    const page = 0;
+
+    handleShowMore();
+
+    const bookElements = document.querySelectorAll('[data-list-items] > book-preview');
+    expect(bookElements.length).toBe(1);
+    expect(bookElements[0].getAttribute('data-preview')).toBe('id1');
+    expect(bookElements[0].getAttribute('title')).toBe('title1');
+    expect(bookElements[0].getAttribute('author')).toBe('author1');
+    expect(bookElements[0].getAttribute('image')).toBe('image1');
+  });
+});
 // Display active book details
 function displayActiveBook(bookId) {
     const activeBook = books.find(book => book.id === bookId);
