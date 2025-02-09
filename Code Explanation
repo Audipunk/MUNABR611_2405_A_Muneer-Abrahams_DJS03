@@ -1,5 +1,20 @@
-DIS03/04
-Code Explanation
+-DJS04-
+**Steps for Setting Up the BookPreview Component**
+
+1. Initialize Component: Create a constructor to set up the component.
+2. Attach Shadow DOM: Encapsulate styles and structure within a shadow DOM.
+3. Handle Lifecycle Events: Use connectedCallback to trigger component setup when added to the DOM.
+4. Render Initial UI: Call the render method to generate HTML and styles.
+5. Define Reactive Attributes: Specify which attributes (title, author, image, id) should trigger updates.
+6. Listen for Attribute Changes: Use attributeChangedCallback to detect updates.
+7. Update Properties: Modify internal properties when attributes change.
+8. Re-render on Updates: Ensure the component reflects the latest data.
+9. Generate HTML & Styles: Use the render method to structure the UI dynamically.
+10. Register as a Custom Element: Define the new web component using customElements.define().
+
+
+-DIS03-
+**Code Explanation**
 
 1. Function Segmentation
 The code is broken into small, single-responsibility functions like populateCardWindow, populateSelectionMenu, and setTheme.
@@ -28,3 +43,4 @@ This avoids code duplication and keeps the logic centralized.
 **Challenges Faced & How They Were Overcome**
 Initially, patterns were not obvious, but by experimenting with the code, opportunities for modularization became clear.
 Breaking down large blocks of code into smaller functions improved readability and maintainability.
+
