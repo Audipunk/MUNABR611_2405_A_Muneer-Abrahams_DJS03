@@ -1,80 +1,65 @@
-
-[
-    class BookPreview extends HTMLElement {
-        {
+class BookPreview extends HTMLElement {
     constructor() {
-      super();
-      this.attachShadow({ mode: "open" });
-    }
-  
-    static get observedAttributes() {
-      return ["title", "author", "image", "id"];
-    }
-  
-    connectedCallback() {
-      this.render();
-    }
-  
-    attributeChangedCallback() {
-      this.render();
-    }
-  
-    render() {
-      const title = this.getAttribute("title") || "Unknown Title";
-      const author = this.getAttribute("author") || "Unknown Author";
-      const image = this.getAttribute("image") || "";
-      const id = this.getAttribute("id") || "";
-  
-      this.shadowRoot.innerHTML = `
-        <!-- your HTML template here -->
-      `;
-    }
-  }
-            <style>
-                .preview {
-                    border: 1px solid #ddd;
-                    border-radius: 8px;
-                    display: flex;
-                    align-items: center;
-                    padding: 1rem;
-                    cursor: pointer;
-                    transition: background-color 0.2s;
-                }
-                .preview:hover {
-                    background-color: #f5f5f5;
-                }
-                .preview__image {
-                    width: 48px;
-                    height: 70px;
-                    object-fit: cover;
-                    border-radius: 4px;
-                    margin-right: 1rem;
-                }
-                .preview__info {
-                    flex-grow: 1;
-                }
-                .preview__title {
-                    font-weight: bold;
-                    margin: 0;
-                    font-size: 1.1rem;
-                }
-                .preview__author {
-                    color: #777;
-                    font-size: 0.9rem;
-                }
-                
-            </style>
+        super();
 
-            <div class="preview" data-preview="${id}">
-                <img class="preview__image" src="${image}" alt="Book Cover">
-                <div class="preview__info">
-                    <h3 class="preview__title">${title}</h3>
-                    <div class="preview__author">${author}</div>
-                </div>
-            </div>
+        const shadow = this.attachShadow({ mode: 'open' });
+
+        const container = document.createElement('div');
+        container.classList.add('preview');
+
+        const image = document.createElement('img');
+        image.classList.add('preview__image');
+        image.src = this.getAttribute('image');
+
+        const info = document.createElement('div');
+        info.classList.add('preview__info');
+
+        const title = document.createElement('h3');
+        title.classList.add('preview__title');
+        title.textContent = this.getAttribute('title');
+
+        const author = document.createElement('div');
+        author.classList.add('preview__author');
+        author.textContent = this.getAttribute('author');
+
+        info.appendChild(title);
+        info.appendChild(author);
+        container.appendChild(image);
+        container.appendChild(info);
+
+        const style = document.createElement('style');
+        style.textContent = `
+            .preview {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                border: 1px solid #ccc;
+                padding: 16px;
+                margin: 8px;
+                cursor: pointer;
+            }
+            .preview__image {
+                width: 100px;
+                height: 150px;
+                object-fit: cover;
+            }
+            .preview__info {
+                margin-top: 8px;
+                text-align: center;
+            }
+            .preview__title {
+                font-size: 16px;
+                margin: 0;
+            }
+            .preview__author {
+                font-size: 14px;
+                color: #555;
+            }
         `;
-    
 
+        shadow.appendChild(style);
+        shadow.appendChild(container);
+    }
+}
 
-customElements.define("book-preview", BookPreview);
-            ],
+customElements.define('book-preview', BookPreview);
