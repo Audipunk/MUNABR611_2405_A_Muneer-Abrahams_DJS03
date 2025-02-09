@@ -1,65 +1,88 @@
 class BookPreview extends HTMLElement {
+    // Constructor to set up the component
     constructor() {
         super();
+        // Attach a shadow DOM to this element, keeping styles and structure encapsulated
+        this.attachShadow({ mode: 'open' });
+    }
 
-        const shadow = this.attachShadow({ mode: 'open' });
+    // This lifecycle method is called when the component is added to the DOM
+    connectedCallback() {
+        this.render(); // Render the component's HTML and CSS when added to the page
+    }
 
-        const container = document.createElement('div');
-        container.classList.add('preview');
+    // Define the attributes that this component will react to
+    static get observedAttributes() {
+        return ['title', 'author', 'image', 'id'];
+    }
 
-        const image = document.createElement('img');
-        image.classList.add('preview__image');
-        image.src = this.getAttribute('image');
+    // Called whenever one of the observed attributes changes
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (oldValue !== newValue) {
+            // Update the corresponding property with the new value
+            this[name] = newValue;
+            // Re-render the component to reflect the updated attribute
+            this.render();
+        }
+    }
 
-        const info = document.createElement('div');
-        info.classList.add('preview__info');
+    // Main render method for the component's HTML structure and styling
+    render() {
+        this.shadowRoot.innerHTML = `
+            <style>
+                /* Styling for the book preview container */
+                .preview {
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    display: flex;
+                    align-items: center;
+                    padding: 1rem;
+                    cursor: pointer;
+                    transition: background-color 0.2s;
+                }
+                .preview:hover {
+                    background-color: #f5f5f5;
+                }
 
-        const title = document.createElement('h3');
-        title.classList.add('preview__title');
-        title.textContent = this.getAttribute('title');
+                /* Styling for the book image */
+                .preview__image {
+                    width: 48px;
+                    height: 70px;
+                    object-fit: cover;
+                    border-radius: 4px;
+                    margin-right: 1rem;
+                }
 
-        const author = document.createElement('div');
-        author.classList.add('preview__author');
-        author.textContent = this.getAttribute('author');
+                /* Container for the book's title and author */
+                .preview__info {
+                    flex-grow: 1;
+                }
 
-        info.appendChild(title);
-        info.appendChild(author);
-        container.appendChild(image);
-        container.appendChild(info);
+                /* Styling for the book title */
+                .preview__title {
+                    font-weight: bold;
+                    margin: 0;
+                    font-size: 1.1rem;
+                }
 
-        const style = document.createElement('style');
-        style.textContent = `
-            .preview {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                border: 1px solid #ccc;
-                padding: 16px;
-                margin: 8px;
-                cursor: pointer;
-            }
-            .preview__image {
-                width: 100px;
-                height: 150px;
-                object-fit: cover;
-            }
-            .preview__info {
-                margin-top: 8px;
-                text-align: center;
-            }
-            .preview__title {
-                font-size: 16px;
-                margin: 0;
-            }
-            .preview__author {
-                font-size: 14px;
-                color: #555;
-            }
+                /* Styling for the author's name */
+                .preview__author {
+                    color: #777;
+                    font-size: 0.9rem;
+                }
+            </style>
+
+            <!-- HTML structure for the book preview -->
+            <div class="preview" data-preview="${this.id}">
+                <img class="preview__image" src="${this.image}" alt="Book Cover">
+                <div class="preview__info">
+                    <h3 class="preview__title">${this.title}</h3>
+                    <div class="preview__author">${this.author}</div>
+                </div>
+            </div>
         `;
-
-        shadow.appendChild(style);
-        shadow.appendChild(container);
     }
 }
 
+// Register the new custom element with the browser
 customElements.define('book-preview', BookPreview);
