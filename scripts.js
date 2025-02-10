@@ -2,7 +2,6 @@ import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
 import { genres,} from "./genre.js";
 import { authors,} from "./authors names .js";
 import { toggleDarkAndLight,} from "./toggle-theme.js";
-import { listDescription,} from "./dropdown.js";
 import { callingElements, createNewElements, newDocument,} from "./functions.js";
 
 let page = 1;
