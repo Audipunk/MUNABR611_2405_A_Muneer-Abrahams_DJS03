@@ -1,9 +1,9 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
-import {
-  callingElements,
-  createNewElements,
-  newDocument,
-} from "./functions.js";
+import { genres,} from "./genre.js";
+import { authors,} from "./authors names .js";
+import { toggleDarkAndLight,} from "./toggle-theme.js";
+import { listDescription,} from "./dropdown.js";
+import { callingElements, createNewElements, newDocument,} from "./functions.js";
 
 let page = 1;
 let matches = books;
@@ -43,44 +43,9 @@ customElements.define("custom-button", CreateCustomButton);
 for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
 }
 
-// Creates different book genre's
-function createGenre() {
-  const genreHtml = newDocument;
-  const firstGenreElement = createNewElements("option");
-  firstGenreElement.value = "any";
-  firstGenreElement.innerText = "All Genres";
-  genreHtml.appendChild(firstGenreElement);
 
-  for (const [id, name] of Object.entries(genres)) {
-    const element = createNewElements("option");
-    element.value = id;
-    element.innerText = name;
-    genreHtml.appendChild(element);
-  }
-  callingElements.searchGenres.appendChild(genreHtml);
-}
 
-createGenre();
 
-// Give's authors names for each book that's generated
-function createAuthor() {
-  const authorsHtml = newDocument;
-  const firstAuthorElement = createNewElements("option");
-  firstAuthorElement.value = "any";
-  firstAuthorElement.innerText = "All Authors";
-  authorsHtml.appendChild(firstAuthorElement);
-
-  for (const [id, name] of Object.entries(authors)) {
-    const element = createNewElements("option");
-    element.value = id;
-    element.innerText = name;
-    authorsHtml.appendChild(element);
-  }
-
-  callingElements.searchAuthors.appendChild(authorsHtml);
-}
-
-createAuthor();
 
 // Dark and Light mode styling
 function stylingToggleThemes() {
