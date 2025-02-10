@@ -104,3 +104,93 @@
         }
     ]
 }
+
+{
+    "git.confirmSync": true,
+    "git.autofetch": true,
+    "githubPullRequests.pullBranch": "never",
+    "files.associations": {
+        "*.js": "javascript",
+        "*.json": "json"
+    },
+    "liveServer.settings.donotShowInfoMsg": true,
+    "[javascript]": {
+        "editor.maxTokenizationLineLength": 2500
+    },
+    "liveServer.settings.fullReload": true,
+    "terminal.integrated.commandsToSkipShell": [""],
+    "terminal.integrated.sendKeybindingsToShell": true,
+    "liveServer.settings.CustomBrowser": "",
+    "liveServer.settings.port": 0,
+    "launch": {
+        "configurations": [
+            {
+                "name": "Launch Edge",
+                "request": "launch",
+                "type": "msedge",
+                "url": "http://localhost:8080",
+                "webRoot": "${workspaceFolder}"
+            }
+        ]
+    },
+    "liveServer.settings.donotVerifyTags": true,
+    "workbench.colorTheme": "Abyss",
+    "editor.renderWhitespace": "none",
+    "git.enableSmartCommit": true,
+    "debug.javascript.autoAttachFilter": "smart",
+    "workbench.iconTheme": null,
+    "npm.enableRunFromFolder": true,
+    "npm.exclude": "",
+    "[json]": {
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.suggest.insertMode": "replace"
+    },
+    "terminal.integrated.enableImages": true,
+    "redhat.telemetry.enabled": true,
+    "json.trace.server": "verbose",
+    "material-icon-theme.folders.associations": {},
+    "npm-intellisense.scanDevDependencies": true,
+    "terminal.integrated.automationProfile.linux": {
+        "path": ""
+    },
+    "terminal.integrated.accessibleViewFocusOnCommandExecution": true,
+    "terminal.integrated.profiles.linux": {
+        "Default": null
+    },
+    "terminal.integrated.profiles": {
+        "bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+        },
+        "zsh": {
+            "path": "zsh"
+        },
+        "fish": {
+            "path": "fish"
+        },
+        "tmux": {
+            "path": "tmux",
+            "icon": "terminal-tmux"
+        },
+        "pwsh": {
+            "path": "pwsh",
+            "icon": "terminal-powershell"
+        }
+    },
+    "terminal.integrated.profiles.windows": {
+        "my-pwsh": {
+            "source": "PowerShell",
+            "args": ["-NoProfile"]
+        },
+        "bash (MSYS2)": {
+            "path": "C:\\msys64\\usr\\bin\\bash.exe",
+            "args": ["--login", "-i"],
+            "env": {
+                "CHERE_INVOKING": "1"
+            }
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "my-pwsh"
+}
