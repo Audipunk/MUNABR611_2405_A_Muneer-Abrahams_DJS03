@@ -1,3 +1,7 @@
+
+
+
+
 {
     "configurations": [
         {
@@ -99,20 +103,21 @@
             "name": "Launch Edge and attach DevTools",
             "configurations": [
                 "Launch Microsoft Edge",
-                "Open Edge DevTools"
+                "Open Edge DevTools",
             ]
         }
     ]
-}
+},
 
-{
-    "git.confirmSync": true,
+{    "git.confirmSync": true,
     "git.autofetch": true,
     "githubPullRequests.pullBranch": "never",
     "files.associations": {
         "*.js": "javascript",
         "*.json": "json"
     },
+    "liveServer.settings.port": 5500 // Example of a completed entry
+    "liveServer.settings.port": 5500 // Example of a completed setting
     "liveServer.settings.donotShowInfoMsg": true,
     "[javascript]": {
         "editor.maxTokenizationLineLength": 2500
